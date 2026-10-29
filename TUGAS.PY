@@ -124,3 +124,132 @@ def simpan_data():
         riwayat_ortu,
         hasil_prediksi
     )
+    VALUES (?, ?, ?, ?, ?, ?)
+    """, (
+        nama,
+        usia,
+        gula,
+        bmi,
+        riwayat,
+        hasil
+    ))
+
+    conn.commit()
+
+    messagebox.showinfo(
+        "Sukses",
+        "Data pasien berhasil disimpan!"
+    )
+
+    entry_nama.delete(0, tk.END)
+    entry_usia.delete(0, tk.END)
+    entry_gula.delete(0, tk.END)
+    entry_bmi.delete(0, tk.END)
+    combo_riwayat.set("Tidak")
+
+
+# =========================
+# TAMPIL DATA
+# =========================
+def lihat_data():
+
+    window = tk.Toplevel(root)
+    window.title("Riwayat Pasien")
+    window.geometry("900x400")
+
+    cols = (
+        "ID",
+        "Nama",
+        "Usia",
+        "Gula Darah",
+        "BMI",
+        "Riwayat Ortu",
+        "Prediksi"
+    )
+
+    tree = ttk.Treeview(
+        window,
+        columns=cols,
+        show="headings"
+    )
+
+    for col in cols:
+        tree.heading(col, text=col)
+        tree.column(col, width=120)
+
+    tree.pack(fill="both", expand=True)
+
+    cursor.execute("SELECT * FROM pasien")
+
+    data = cursor.fetchall()
+
+    for row in data:
+        tree.insert("", tk.END, values=row)
+
+
+# =========================
+# GUI TKINTER
+# =========================
+root = tk.Tk()
+root.title("Prediksi Risiko Diabetes")
+root.geometry("500x450")
+root.resizable(False, False)
+
+judul = tk.Label(
+    root,
+    text="APLIKASI PREDIKSI RISIKO DIABETES",
+    font=("Arial", 14, "bold")
+)
+judul.pack(pady=10)
+
+frame = tk.Frame(root)
+frame.pack(pady=10)
+
+# Nama
+tk.Label(
+    frame,
+    text="Nama Pasien"
+).grid(row=0, column=0, sticky="w", pady=5)
+
+entry_nama = tk.Entry(frame, width=30)
+entry_nama.grid(row=0, column=1)
+
+# Usia
+tk.Label(
+    frame,
+    text="Usia"
+).grid(row=1, column=0, sticky="w", pady=5)
+
+entry_usia = tk.Entry(frame, width=30)
+entry_usia.grid(row=1, column=1)
+
+# Gula Darah
+tk.Label(
+    frame,
+    text="Gula Darah (mg/dL)"
+).grid(row=2, column=0, sticky="w", pady=5)
+
+entry_gula = tk.Entry(frame, width=30)
+entry_gula.grid(row=2, column=1)
+
+# BMI
+tk.Label(
+    frame,
+    text="BMI"
+).grid(row=3, column=0, sticky="w", pady=5)
+
+entry_bmi = tk.Entry(frame, width=30)
+entry_bmi.grid(row=3, column=1)
+
+# Riwayat
+tk.Label(
+    frame,
+    text="Riwayat Diabetes Orang Tua"
+).grid(row=4, column=0, sticky="w", pady=5)
+
+combo_riwayat = ttk.Combobox(
+    frame,
+    values=["Ya", "Tidak"],
+    state="readonly",
+    width=27
+)
