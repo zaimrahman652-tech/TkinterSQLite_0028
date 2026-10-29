@@ -287,3 +287,9 @@ lbl_hasil = tk.Label(
     text="Hasil Prediksi Akan Tampil Di Sini",
     font=("Arial", 12, "bold")
 )
+
+lbl_hasil.pack(pady=20)
+
+root.mainloop()
+
+conn.close()
