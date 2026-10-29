@@ -259,4 +259,31 @@ combo_riwayat.set("Tidak")
 
 # Tombol Prediksi
 btn_prediksi = tk.Button(
-    
+    root,
+    text="Simpan & Prediksi",
+    width=20,
+    bg="green",
+    fg="white",
+    command=simpan_data
+)
+
+btn_prediksi.pack(pady=10)
+
+# Tombol Lihat Data
+btn_data = tk.Button(
+    root,
+    text="Lihat Data",
+    width=20,
+    bg="blue",
+    fg="white",
+    command=lihat_data
+)
+
+btn_data.pack(pady=5)
+
+# Label Hasil
+lbl_hasil = tk.Label(
+    root,
+    text="Hasil Prediksi Akan Tampil Di Sini",
+    font=("Arial", 12, "bold")
+)
