@@ -253,3 +253,10 @@ combo_riwayat = ttk.Combobox(
     state="readonly",
     width=27
 )
+
+combo_riwayat.grid(row=4, column=1)
+combo_riwayat.set("Tidak")
+
+# Tombol Prediksi
+btn_prediksi = tk.Button(
+    
